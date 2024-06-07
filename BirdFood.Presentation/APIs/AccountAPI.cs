@@ -25,6 +25,13 @@ namespace BirdFood.Presentation.APIs
                 if (response.IsFailure) HandleFailure(response);
                 return Results.Ok(response);
             }).RequireAuthorization();
+            group1.MapPost("/aa", async ([FromBody] CreateAccountDTO CreateAccountDTO, ISender _sender) =>
+            {
+                var command = new CreateAccount(CreateAccountDTO);
+                Result response = await _sender.Send(command);
+                if (response.IsFailure) HandleFailure(response);
+                return Results.Ok(response);
+            }).RequireAuthorization();
         }
     }
 }
